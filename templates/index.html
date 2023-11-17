@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Data</title>
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif;
+            background-color: #2b2b2b; /* Dark grey background color */
+            color: #fff; /* White text color */
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-family: 'Cursive', sans-serif; /* Stylish font for "Player Data" */
+            margin-bottom: 20px;
+        }
+
+        h2, p {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: none; /* Remove borders */
+        }
+
+        th {
+            background-color: #444; /* Dark grey header background color */
+            color: #fff; /* White header text color */
+        }
+
+        tr:nth-child(even) {
+            background-color: #555; /* Dark grey alternate row background color */
+        }
+
+        input[type="text"], input[type="submit"], input[type="button"] {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px; /* Rounded corners for a capsule-like appearance */
+        }
+
+        input[type="button"] {
+            padding: 10px;
+            background-color: #555; /* Dark grey button background color */
+            color: #fff; /* White button text color */
+            cursor: pointer;
+        }
+           .btn2 {
+            margin: 10px;
+            padding: 10px;
+            background-color: #555; /* Dark grey button background color */
+            color: #fff; /* White button text color */
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #777; /* Dark grey button background color on hover */
+        }
+
+        input[type="text"]::placeholder {
+            color: #888; /* Light grey placeholder text color */
+        }
+
+        .player-data {
+
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Player Data</h1>
+
+    <form action="/" method="post">
+        <input type="text" id="search" name="search" placeholder="Search for a player">
+        <input type="submit" value="Search">
+        <input type="button" value="Refresh" onclick="location.reload();">
+    </form>
+
+    {% if search_result %}
+        {% if search_result is string %}
+            <p>{{ search_result }}</p>
+            <input type="button" value="Back" onclick="window.location.href='/'">
+        {% else %}
+            <h2 class="player-data">Search Result</h2>
+            <table>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Scored Try</th>
+                </tr>
+                <tr>
+                    <td>{{ search_result['First name'] }}</td>
+                    <td>{{ search_result['Last name'] }}</td>
+                    <td>{{ search_result['Age'] }}</td>
+                    <td>{{ search_result['Scored Try'] }}</td>
+                </tr>
+            </table>
+            <input type="button" class="btn2" value="Back" onclick="window.location.href='/'">
+        {% endif %}
+    {% else %}
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Scored Try</th>
+            </tr>
+            {% for player, data in person.items() %}
+                <tr>
+                    <td>{{ data['First name'] }}</td>
+                    <td>{{ data['Last name'] }}</td>
+                    <td>{{ data['Age'] }}</td>
+                    <td>{{ data['Scored Try'] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
